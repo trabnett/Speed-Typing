@@ -14,7 +14,6 @@ class TypeArea extends React.Component{
         e.preventDefault()
     }
     handleChange = (e) => {
-        console.log(e.keyCode)
         if (this.props.timeup){
             return this.setState({textArea: ""})
         }
@@ -27,7 +26,7 @@ class TypeArea extends React.Component{
         return(
             <Form onSubmit={(e) => this.void(e)}>
                 <Form.Group controlId="formBasicEmail">
-                    {!this.props.timeup ? <Form.Label>Type this word: <b>{this.props.word}</b></Form.Label> : <Form.Label className="text-danger">Time Up!</Form.Label>}
+                    {!this.props.timeup ? <Form.Label>Type this word: <b>{this.props.word}</b></Form.Label> : <Form.Label className="text-danger">Try Again?</Form.Label>}
                     <Form.Control value={this.props.timeup ? "" : this.state.textArea} onChange={this.handleChange} type="Text" placeholder={this.props.timeup ? "Time Up!" : "Type in the word!"} />
                 </Form.Group>
                 {this.props.timeup ? <Button variant="primary" type="button" onClick={this.props.restart}>Restart</Button> : null}
