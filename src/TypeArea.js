@@ -10,7 +10,12 @@ class TypeArea extends React.Component{
         }
     }
     handleChange = (e) => {
-        e.target.value === this.props.word && !this.props.timeup ? this.props.handleScore() : console.log("hell0")
+        if (this.props.timeup){
+            return this.setState({textArea: ""})
+        }
+        if (e.target.value === this.props.word && !this.props.timeup){
+            return this.setState({textArea: ""}, () => this.props.handleScore())
+        }
         this.setState({textArea: e.target.value})
         console.log(e.target.value)
     }
@@ -18,12 +23,10 @@ class TypeArea extends React.Component{
         return(
             <Form>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Enter your </Form.Label>
-                    <Form.Control value={this.state.textArea} onChange={this.handleChange} type="Text" placeholder="Type in the word!" />
+                    {!this.props.timeup ? <Form.Label>Type this work: <b>{this.props.word}</b></Form.Label> : <Form.Label>Time Up!</Form.Label>}
+                    <Form.Control value={this.props.timeup ? "" : this.state.textArea} onChange={this.handleChange} type="Text" placeholder="Type in the word!" />
                 </Form.Group>
-                <Button variant="primary" type="button" onClick={this.props.timeup ? this.props.restart : this.props.handleScore}>
-                    {this.props.timeup ? "Restart" : "Submit"}
-                </Button>
+                {this.props.timeup ? <Button variant="primary" type="button" onClick={this.props.restart}>Restart</Button> : null}
             </Form>
         )
     }

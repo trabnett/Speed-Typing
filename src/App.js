@@ -11,11 +11,12 @@ class App extends React.Component{
       score: 0,
       timeup: false,
       countdown: 12,
-      word: "Hey"
+      wordCount: 1,
+      words: []
     }
   }
   handleScore = () =>{
-    this.setState({score: this.state.score + 1}, () => console.log(this.state.score))
+    this.setState({score: this.state.score + 1, wordCount: this.state.wordCount + 1}, () => console.log(this.state.score))
   }
   restart = () => {
     console.log("restart")
@@ -29,8 +30,11 @@ class App extends React.Component{
       method: 'GET',
       headers: {'Content-Type': 'application/json'},
     })
-    .then(res => res.text()) // OR res.json()
-    .then(res => console.log("here it is", res))
+    .then(res => res.json()) // OR res.json()
+    .then(res => this.setState({words: res}, () => console.log("here it is", res)) )
+    .catch(function(error) {
+      console.log(error);
+    });
   }
   render(){
     return (
@@ -39,7 +43,7 @@ class App extends React.Component{
         <div>
           {this.state.score}
         </div>
-        <TypeArea handleScore={this.handleScore} restart={this.restart} word={this.state.word} timeup={this.state.timeup}/>
+        <TypeArea handleScore={this.handleScore} restart={this.restart} word={this.state.words[this.state.wordCount]} timeup={this.state.timeup}/>
       </div>
     );
   }
