@@ -28,7 +28,7 @@ class TypeArea extends React.Component{
             <Form onSubmit={(e) => this.void(e)}>
                 <Form.Group controlId="formBasicEmail">
                     {!this.props.timeup ? <Form.Label>Type this word: <b>{this.props.word}</b></Form.Label> : <Form.Label className="text-danger">Time Up!</Form.Label>}
-                    <Form.Control value={this.props.timeup ? "" : this.state.textArea} onChange={this.handleChange} type="Text" placeholder={this.props.timeup ? "Time Up" : "Type in the word!"} />
+                    <Form.Control value={this.props.timeup ? "" : this.state.textArea} onChange={this.handleChange} type="Text" placeholder={this.props.timeup ? "Time Up!" : "Type in the word!"} />
                 </Form.Group>
                 {this.props.timeup ? <Button variant="primary" type="button" onClick={this.props.restart}>Restart</Button> : null}
             </Form>

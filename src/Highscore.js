@@ -15,7 +15,7 @@ class Highscore extends React.Component{
         this.props.handleHighScore(this.state.name)
     }
     handleChange = (e) => {
-        this.setState({name: e.target.value}, () => console.log(this.state, "state in highscore"))
+        this.setState({name: e.target.value})
     }
     render(){
         return(
@@ -24,7 +24,7 @@ class Highscore extends React.Component{
                 <h3>You have joined our illustrious Hall Of Fame!</h3>
                 <Form onSubmit={(e) => this.submit(e)}>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Control onChange={this.handleChange} type="Text" placeholder="Type in the word!" />
+                        <Form.Control onChange={this.handleChange} type="Text" placeholder="Enter your Name or Initials!" />
                     </Form.Group>
                     <Button variant="primary" type="submit" >Enter the Hall of Fame!</Button>
                 </Form>

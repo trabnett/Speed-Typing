@@ -19,7 +19,8 @@ class App extends React.Component{
       words: [],
       correctWords: [],
       top3: [],
-      highscore: false
+      highscore: false,
+      name: ""
     }
   }
   handleScore = () =>{
@@ -32,18 +33,46 @@ class App extends React.Component{
   }
   checkForHighScore = () =>{
     if (this.state.score >= this.state.top3["score3"]){
-      console.log('here we are in check for high score',this.state.top3["score3"])
+      this.setState({highscore: true})
     }
-    return "hello"
+  }
+  upDateJson = () => {
+    fetch('https://api.myjson.com/bins/djj3t', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({"top3": this.state.top3})
+    })
+    .then(res => res.text()) 
+    .then(res => console.log("response", res))
+    .catch(function(error) {
+      console.log(error);
+    });
   }
   handleHighScore = (name) => {
-    console.log(name, this.state.score)
+    console.log("here?")
+    this.setState({name: name}, () => {
+      if (this.state.score >= this.state.top3["score1"]){
+        let newTop3 = {1: this.state.name, "score1": this.state.score, 2: this.state.top3[1], "score2": this.state.top3["score1"], 3: this.state.top3[2], "score3": this.state.top3["score2"]}
+        return this.setState({top3: newTop3, highscore: false}, ()=> this.upDateJson())
+      } else if (this.state.score >= this.state.top3["score2"]){
+        let newTop3 = {1: this.state.top3[1], "score1": this.state.top3["score1"], 2: this.state.name, "score2": this.state.score, 3: this.state.top3[2], "score3": this.state.top3["score2"]}
+        return this.setState({top3: newTop3, highscore: false}, ()=> this.upDateJson())
+      } else {
+        let newTop3 = {1: this.state.top3[1], "score1": this.state.top3["score1"], 2: this.state.top3[2], "score2": this.state.top3["score2"], 3: this.state.name, "score3": this.state.score}
+        return this.setState({top3: newTop3, highscore: false}, ()=> this.upDateJson())
+      }
+
+    })
+    console.log("handlehighscore", name, this.state.score)
   }
   // countdown timer works by having a countdown timer fire this tick function once everysecond from the Timer component
   tick = () => {
-    this.state.countdown > 0 ? this.setState({countdown: this.state.countdown - 1}) : this.setState({countdown: 0, timeup: true, wordCount: this.state.wordCount + 1})
+    this.state.countdown > 0 ? this.setState({countdown: this.state.countdown - 1}) : this.setState({countdown: 0, timeup: true, wordCount: this.state.wordCount + 1}, () => this.checkForHighScore())
   }
   componentDidMount() {
+    if (this.state.countdown === 0){
+      console.log("hello")
+    }
     // fetch random words list
     // !!! important - api keys seem to expire quickly. A new one can be found at https://random-word-api.herokuapp.com/ and inserted into the URL below
     fetch('https://random-word-api.herokuapp.com/word?key=7AZY316Q&number=20', {mode: 'cors'}, {
@@ -57,7 +86,7 @@ class App extends React.Component{
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
       })
-      .then(res => res.json()) // OR res.json()
+      .then(res => res.json())
       .then(res => this.setState({top3: res['top3']}, () => console.log(this.state.top3[1])))
     })
     .catch(function(error) {
@@ -65,9 +94,6 @@ class App extends React.Component{
     });
   }
   render(){
-    if (this.state.timeup){
-      this.checkForHighScore()
-    }
     return (
       <div>
         <Navbar bg="dark navbar"><div className="pin"><div className="title">Typepocolypse:</div><div className="subtitle"> The Most Challenging Typing Test on the Internet</div></div></Navbar>
