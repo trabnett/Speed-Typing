@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './App.css';
 
 class Timer extends React.Component{
     constructor(props) {
@@ -19,7 +19,11 @@ class Timer extends React.Component{
     }
     render(){
         return(
-            <div className="text-center">{this.props.time}</div>
+            <div className="text-center">
+                <div className="timer">
+                    {this.props.time}
+                </div>
+            </div>
         )
     }
 }
