@@ -20,7 +20,8 @@ class App extends React.Component{
       correctWords: [],
       top3: [],
       highscore: false,
-      name: ""
+      name: "",
+      api_key: ""
     }
   }
   handleScore = () =>{
@@ -68,20 +69,28 @@ class App extends React.Component{
   componentDidMount() {
     // fetch random words list
     // !!! important - api keys seem to expire quickly. A new one can be found at https://random-word-api.herokuapp.com/ and inserted into the URL below
-    fetch('https://random-word-api.herokuapp.com/word?key=7AZY316Q&number=100', {mode: 'cors'}, {
+   fetch('https://cors-anywhere.herokuapp.com/https://random-word-api.herokuapp.com/key?', {
       method: 'GET',
       headers: {'Content-Type': 'application/json'},
     })
-    .then(res => res.json())
-    .then(res => {
-      this.setState({words: res}) 
-      fetch('https://api.myjson.com/bins/djj3t', {
+    .then(res => res.text()) 
+    .then(res => this.setState({api_key: res}, () => {
+      console.log(this.state)
+      fetch(`https://random-word-api.herokuapp.com/word?key=${this.state.api_key}&number=100`, {mode: 'cors'}, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
       })
       .then(res => res.json())
-      .then(res => this.setState({top3: res['top3']}))
-    })
+      .then(res => {
+        this.setState({words: res}) 
+        fetch('https://api.myjson.com/bins/djj3t', {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => res.json())
+        .then(res => this.setState({top3: res['top3']}))
+      })
+    }))
     .catch(function(error) {
       console.log(error);
     });
