@@ -75,7 +75,6 @@ class App extends React.Component{
     })
     .then(res => res.text()) 
     .then(res => this.setState({api_key: res}, () => {
-      console.log(this.state)
       fetch(`https://random-word-api.herokuapp.com/word?key=${this.state.api_key}&number=100`, {mode: 'cors'}, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
