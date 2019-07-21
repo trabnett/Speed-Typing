@@ -64,7 +64,9 @@ class App extends React.Component{
   }
   // countdown timer works by having a countdown timer fire this tick function once everysecond from the Timer component
   tick = () => {
-    this.state.countdown > 0 ? this.setState({countdown: this.state.countdown - 1}) : this.setState({countdown: 0, timeup: true, wordCount: this.state.wordCount + 1}, () => this.checkForHighScore())
+    if (this.state.words.length > 0){
+      this.state.countdown > 0 ? this.setState({countdown: this.state.countdown - 1}) : this.setState({countdown: 0, timeup: true, wordCount: this.state.wordCount + 1}, () => this.checkForHighScore())
+    }
   }
   componentDidMount() {
     // fetch random words list
