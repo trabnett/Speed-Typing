@@ -4,12 +4,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import './App.css';
 
 class HOF extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
-
     render(){
         return(
             <div className="text-center">
