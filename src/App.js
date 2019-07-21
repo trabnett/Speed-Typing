@@ -92,7 +92,7 @@ class App extends React.Component{
       .then(res => res.json())
       .then(res => {
         this.setState({words: res, start: true})
-      })
+      }).catch(error => console.log('Looks like the random word api key generator is down. Try again later.'))
     }))
     .catch(function(error) {
       console.log(error);
