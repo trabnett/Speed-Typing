@@ -31,4 +31,4 @@ $ npm start
 ``
 
 
-![screenshot](public/Screen Shot 2019-07-21 at 5.15.50 PM.png)
+![screenshot](https://github.com/trabnett/Speed-Typing/blob/master/public/Screen%20Shot%202019-07-21%20at%205.15.50%20PM.png)
