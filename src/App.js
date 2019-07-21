@@ -91,7 +91,7 @@ class App extends React.Component{
       })
       .then(res => res.json())
       .then(res => {
-        this.setState({words: res, start: true, countdown: 24})
+        this.setState({words: res, start: true})
       })
     }))
     .catch(function(error) {
