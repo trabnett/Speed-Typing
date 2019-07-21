@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This a simple one page React app where users who arrive on the page are greeted with a countdown timer and a word to type. Users receive 1 point for every correct word they type durning the countdown. If they score more points than anyone currently in the three person Hall Of Fame, they will join the Hall Of Fame in the appropriate place.
 
 This webapp is hosted on Netlify at:
-[NBA Player Ranker webapp](https://thirsty-johnson-916d27.netlify.com/)
+[Speed-Typing-App](https://thirsty-johnson-916d27.netlify.com/)
 
 #### Dependencies and Requirements:
 
