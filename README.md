@@ -30,3 +30,5 @@ $ npm install
 $ npm start  
 ``
 
+
+![screenshot](public/Screen Shot 2019-07-21 at 5.15.50 PM.png)
