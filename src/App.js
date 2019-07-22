@@ -14,7 +14,7 @@ class App extends React.Component{
     this.state = {
       score: 0,
       timeup: false,
-      start: false,
+      start: true,
       countdown: 25,
       wordCount: 1,
       words: [],
@@ -108,7 +108,7 @@ class App extends React.Component{
           </div>
           {this.state.highscore ? <Highscore handleHighScore={this.handleHighScore}/> : null}
           <TypeArea handleScore={this.handleScore} restart={this.restart} word={this.state.words[this.state.wordCount]} timeup={this.state.timeup}/>
-          {this.state.timeup ? <p className="text-center text-danger">Time Up</p> : <Timer key={this.state.countdown} tick={this.tick} time={this.state.countdown} start={this.state.start}/>}
+          {this.state.timeup ? <p className="text-center text-danger">Time Up</p> : <Timer key={this.state.countdown} tick={this.tick} time={this.state.countdown}/>}
         </div>
         <CorrectWords words={this.state.correctWords}/>
         <HOF top3={this.state.top3}/>
